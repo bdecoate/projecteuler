@@ -12,6 +12,7 @@ class Node(object):
 class PathSum(object):
 	def __init__(self, pyramid):
 		self._table = {}
+		self._pyramid = pyramid
 
 	def solve(self):
 		"""Solve all path sums for the pyramid
@@ -21,8 +22,8 @@ class PathSum(object):
 		"""
 		# reverse enumerator for the pyramid
 		flipped_pyramid = zip(
-			reversed(range(len(pyramid))),
-			reversed(pyramid))
+			reversed(range(len(self._pyramid))),
+			reversed(self._pyramid))
 
 		for i, row in flipped_pyramid:
 			self._table[i] = []
@@ -39,7 +40,7 @@ class PathSum(object):
 				# Add the node to the table, and calculate its max path_sum
 				self._table[i].append(Node(val, left, right, path_sum))
 				self.path_sum(i, j)
-				return self.path_sum(0, 0)
+		return self.path_sum(0, 0)
 
 	def path_sum(self, i, j):
 		"""Calculate a node's pathsum
@@ -49,7 +50,7 @@ class PathSum(object):
 		node = self._table[i][j]
 		if node.path_sum is None:
 			node.path_sum = self._path_sum(node)
-			return node.path_sum
+		return node.path_sum
 
 	def _path_sum(self, node):
 		"""Recursively calculate a node's pathsum

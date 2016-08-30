@@ -35,6 +35,7 @@ class Node(object):
 class PathSum(object):
 	def __init__(self, pyramid):
 		self._table = {}
+		self._pyramid = pyramid
 
 	def solve(self):
 		"""Solve all path sums for the pyramid
@@ -44,8 +45,8 @@ class PathSum(object):
 		"""
 		# reverse enumerator for the pyramid
 		flipped_pyramid = zip(
-			reversed(range(len(pyramid))),
-			reversed(pyramid))
+			reversed(range(len(self._pyramid))),
+			reversed(self._pyramid))
 
 		for i, row in flipped_pyramid:
 			self._table[i] = []
